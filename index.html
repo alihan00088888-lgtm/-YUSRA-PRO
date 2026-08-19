@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YUSRA - Тариф PRO</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;       /* Более темный синий */
+            --primary-dark: #172554;  /* Глубокий синий */
+            --primary-light: #dbeafe; 
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-color: #0f172a;
+            --text-muted: #475569;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 420px;
+            padding: 24px;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--primary);
+        }
+        .logo-area { text-align: center; margin-bottom: 20px; }
+        .logo-title { font-size: 32px; font-weight: 900; color: var(--primary-dark); }
+        .logo-subtitle { font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; }
+
+        .mode-buttons { display: flex; gap: 8px; margin-bottom: 20px; background: #e2e8f0; padding: 4px; border-radius: 12px; }
+        .mode-btn { flex: 1; padding: 10px; border: none; background: transparent; border-radius: 9px; font-weight: 600; cursor: pointer; color: var(--text-muted); }
+        .mode-btn.active { background: var(--primary); color: white; }
+        
+        .form-group { margin-bottom: 16px; }
+        label { display: block; font-size: 13px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; }
+        input, select { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px; box-sizing: border-box; }
+        
+        .result-box { background: var(--primary-light); border-radius: 16px; padding: 18px; margin-top: 20px; }
+        .result-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+        .result-row span:last-child { font-weight: 800; }
+        
+        .actions { display: flex; gap: 10px; margin-top: 20px; }
+        .action-btn { flex: 1; padding: 14px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; color: #fff; }
+        .btn-copy { background-color: #334155; }
+        .btn-whatsapp { background-color: #166534; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo-area">
+        <div class="logo-title">YUSRA</div>
+        <div class="logo-subtitle">Тарифный план PRO</div>
+    </div>
+
+    <div class="mode-buttons">
+        <button type="button" id="btnWithVznos" class="mode-btn active" onclick="setMode(true)">Со взносом</button>
+        <button type="button" id="btnNoVznos" class="mode-btn" onclick="setMode(false)">Без взноса</button>
+    </div>
+
+    <div class="form-group">
+        <label>Себестоимость (₽):</label>
+        <input type="number" id="costPrice" value="100000" oninput="onCostChange()">
+    </div>
+
+    <div class="form-group">
+        <label>Срок рассрочки:</label>
+        <select id="months" onchange="calculate()"></select>
+    </div>
+
+    <div class="form-group" id="vznosGroup">
+        <label>Первоначальный взнос (₽):</label>
+        <input type="number" id="vznos" value="20000" oninput="calculate()">
+    </div>
+
+    <div class="result-box">
+        <div class="result-row"><span>Ежемесячный платеж:</span> <span id="resMonthly">0 ₽</span></div>
+        <div class="result-row"><span>Переплата:</span> <span id="resOverpay">0 ₽</span></div>
+    </div>
+
+    <div class="actions">
+        <button type="button" class="action-btn btn-copy" onclick="copyResult()">Копировать</button>
+        <button type="button" class="action-btn btn-whatsapp" onclick="shareResult()">WhatsApp</button>
+    </div>
+</div>
+
+<script>
+    let withVznos = true;
+    
+    // Тарифы от 20 000 ₽ (по вашему фото + 2 мес)
+    const ratesHigh = { 
+        2: {withV: 18, noV: 12}, 3: {withV: 14, noV: 20}, 4: {withV: 16, noV: 22}, 5: {withV: 18, noV: 24}, 
+        6: {withV: 21, noV: 27}, 7: {withV: 24, noV: 31}, 8: {withV: 28, noV: 35}, 9: {withV: 31, noV: 38}, 
+        10: {withV: 34, noV: 41}, 11: {withV: 37, noV: 44}, 12: {withV: 40, noV: 47} 
+    };
+    
+    // Старые тарифы до 20 000 ₽
+    const ratesLow = { 2: {withV: 15, noV: 20}, 3: {withV: 20, noV: 25}, 4: {withV: 25, noV: 30}, 5: {withV: 27, noV: 32} };
+
+    function updateMonthOptions(cost) {
+        let select = document.getElementById('months');
+        let currentVal = select.value;
+        select.innerHTML = '';
+        let maxMonth = cost < 20000 ? 5 : 12;
+        for (let i = 2; i <= maxMonth; i++) {
+            let opt = document.createElement('option');
+            opt.value = i;
+            opt.innerText = i + ' ' + (i < 5 ? 'месяца' : 'месяцев');
+            select.appendChild(opt);
+        }
+        if (currentVal <= maxMonth) select.value = currentVal;
+    }
+
+    function setMode(status) {
+        withVznos = status;
+        document.getElementById('btnWithVznos').classList.toggle('active', status);
+        document.getElementById('btnNoVznos').classList.toggle('active', !status);
+        document.getElementById('vznosGroup').style.display = status ? 'block' : 'none';
+        calculate();
+    }
+    
+    function onCostChange() { 
+        let cost = parseFloat(document.getElementById('costPrice').value)||0;
+        updateMonthOptions(cost);
+        calculate(); 
+    }
+    
+    function calculate() {
+        let cost = parseFloat(document.getElementById('costPrice').value) || 0;
+        let months = parseInt(document.getElementById('months').value) || 2;
+        let vznos = withVznos ? (parseFloat(document.getElementById('vznos').value) || 0) : 0;
+        
+        let table = cost < 20000 ? ratesLow : ratesHigh;
+        let rate = table[months] ? (withVznos ? table[months].withV : table[months].noV) : 0;
+        
+        let total = cost + (cost * (rate / 100));
+        let monthly = Math.round((total - vznos) / months / 50) * 50;
+        let overpay = (vznos + (monthly * months)) - cost;
+
+        document.getElementById('resMonthly').innerText = monthly.toLocaleString('ru-RU') + ' ₽';
+        document.getElementById('resOverpay').innerText = overpay.toLocaleString('ru-RU') + ' ₽';
+    }
+
+    function getResultText() {
+        return `🔹️ *YUSRA PRO* 🔹️\nСебестоимость: *${document.getElementById('costPrice').value} ₽*\nПлатеж: *${document.getElementById('resMonthly').innerText}*\nПереплата: *${document.getElementById('resOverpay').innerText}*`;
+    }
+
+    function copyResult() { navigator.clipboard.writeText(getResultText()); }
+    function shareResult() { window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(getResultText())}`, '_blank'); }
+    
+    updateMonthOptions(100000);
+    calculate();
+</script>
+</body>
+</html>
