@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YUSRA - Рассрочка (Новый тариф)</title>
+    <title>YUSRA - Рассрочка (High)</title>
     <style>
         :root {
-            /* Обновленная цветовая схема: основной цвет - изумрудный */
-            --primary: #059669;       
-            --primary-dark: #065f46;  
-            --primary-light: #ecfdf5; 
-            --bg-color: #f0fdf4;
+            --primary: #0f172a;       /* Теперь основной цвет черный */
+            --primary-dark: #020617;  
+            --primary-light: #f1f5f9; 
+            --secondary: #1e40af;     /* Синий стал дополнительным */
+            --bg-color: #f8fafc;
             --card-bg: #ffffff;
-            --text-color: #064e3b;
-            --text-muted: #475569;
-            --border-color: #a7f3d0;
+            --text-color: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -33,31 +33,30 @@
             max-width: 420px;
             padding: 24px;
             border-radius: 20px;
-            box-shadow: 0 10px 25px -5px rgba(5, 150, 105, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--border-color);
         }
         
         .logo-area { text-align: center; margin-bottom: 20px; }
-        .logo-title { font-size: 32px; font-weight: 900; color: var(--primary-dark); letter-spacing: 2px; }
-        .logo-subtitle { font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; }
+        .logo-title { font-size: 32px; font-weight: 900; color: var(--primary); letter-spacing: 2px; }
+        .logo-subtitle { font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; }
 
-        .mode-buttons { display: flex; gap: 8px; margin-bottom: 20px; background: #f0fdf4; padding: 4px; border-radius: 12px; border: 1px solid var(--border-color); }
+        .mode-buttons { display: flex; gap: 8px; margin-bottom: 20px; background: #f1f5f9; padding: 4px; border-radius: 12px; }
         .mode-btn { flex: 1; padding: 10px; border: none; background: transparent; border-radius: 9px; font-weight: 600; cursor: pointer; color: var(--text-muted); transition: all 0.2s; }
         .mode-btn.active { background: var(--primary); color: white; }
         
         .form-group { margin-bottom: 16px; }
         label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
-        input, select { width: 100%; padding: 12px 14px; border: 1px solid var(--border-color); border-radius: 12px; font-size: 16px; box-sizing: border-box; outline: none; }
-        input:focus, select:focus { border-color: var(--primary); }
+        input, select { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 12px; font-size: 16px; box-sizing: border-box; }
         
-        .result-box { background: var(--primary-light); border: 1px solid var(--border-color); border-radius: 16px; padding: 18px; margin-top: 20px; }
-        .result-box h3 { margin: 0 0 12px 0; font-size: 15px; color: var(--primary-dark); }
+        .result-box { background: var(--primary-light); border-radius: 16px; padding: 18px; margin-top: 20px; }
+        .result-box h3 { margin: 0 0 12px 0; font-size: 15px; color: var(--primary); }
         .result-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
         .result-row span:last-child { font-weight: 700; }
         
         .actions { display: flex; gap: 10px; margin-top: 20px; }
-        .action-btn { flex: 1; padding: 14px; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; color: #fff; text-align: center; }
-        .btn-copy { background-color: var(--text-muted); }
+        .action-btn { flex: 1; padding: 14px; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; color: #fff; }
+        .btn-copy { background-color: var(--secondary); }
         .btn-whatsapp { background-color: #25d366; }
     </style>
 </head>
@@ -66,7 +65,7 @@
 <div class="container">
     <div class="logo-area">
         <div class="logo-title">YUSRA</div>
-        <div class="logo-subtitle">Рассрочка по нормам ислама</div>
+        <div class="logo-subtitle">Рассрочка (High)</div>
     </div>
 
     <div class="mode-buttons">
@@ -107,16 +106,14 @@
 
 <script>
     let withVznos = true;
-    let lastCalcData = {};
     
-    // Обновленные тарифы от 20 000 ₽
+    // Новые проценты
     const ratesHigh = { 
         2: {withV: 12, noV: 18}, 3: {withV: 14, noV: 20}, 4: {withV: 16, noV: 22}, 5: {withV: 18, noV: 24}, 
         6: {withV: 21, noV: 27}, 7: {withV: 24, noV: 31}, 8: {withV: 28, noV: 35}, 9: {withV: 31, noV: 38}, 
         10: {withV: 34, noV: 41}, 11: {withV: 37, noV: 44}, 12: {withV: 40, noV: 47} 
     };
     
-    // Старые тарифы до 20 000 ₽ (оставлены без изменений)
     const ratesLow = { 
         2: {withV: 15, noV: 20}, 3: {withV: 20, noV: 25}, 4: {withV: 25, noV: 30}, 5: {withV: 27, noV: 32} 
     };
@@ -128,11 +125,10 @@
         let maxMonth = cost < 20000 ? 5 : 12;
         for (let i = 2; i <= maxMonth; i++) {
             let opt = document.createElement('option');
-            opt.value = i; opt.innerText = i + (i < 5 ? ' месяца' : ' месяцев');
+            opt.value = i; opt.innerText = i + ' ' + (i < 5 ? 'месяца' : 'месяцев');
             select.appendChild(opt);
         }
-        select.value = (currentVal && currentVal <= maxMonth) ? currentVal : (cost < 20000 ? 3 : 12);
-        calculate();
+        if (currentVal && currentVal <= maxMonth) select.value = currentVal;
     }
 
     function setMode(status) {
@@ -145,15 +141,18 @@
     }
     
     function onCostChange() { 
-        updateMonthOptions(parseFloat(document.getElementById('costPrice').value)||0); 
+        let cost = parseFloat(document.getElementById('costPrice').value)||0;
+        updateMonthOptions(cost);
+        calculate(); 
     }
     
     function calculate() {
         let cost = parseFloat(document.getElementById('costPrice').value) || 0;
-        let months = parseInt(document.getElementById('months').value) || 3;
+        let months = parseInt(document.getElementById('months').value) || 2;
         let vznos = withVznos ? (parseFloat(document.getElementById('vznos').value) || 0) : 0;
+        
         let table = cost < 20000 ? ratesLow : ratesHigh;
-        let rates = table[months] || table[Object.keys(table).pop()];
+        let rates = table[months] || table[2];
         
         let percent = withVznos ? rates.withV : rates.noV;
         let totalCost = cost + (cost * (percent / 100));
@@ -161,32 +160,16 @@
         let monthly = Math.round((remaining / months) / 50) * 50;
         let finalTotal = vznos + (monthly * months);
         
-        lastCalcData = {
-            costStr: cost.toLocaleString('ru-RU') + ' ₽',
-            vznosStr: vznos.toLocaleString('ru-RU') + ' ₽',
-            monthsStr: months + ' мес.',
-            monthlyStr: monthly.toLocaleString('ru-RU') + ' ₽',
-            totalStr: finalTotal.toLocaleString('ru-RU') + ' ₽',
-            overpayStr: (finalTotal - cost).toLocaleString('ru-RU') + ' ₽'
-        };
-
-        document.getElementById('resCost').innerText = lastCalcData.costStr;
-        document.getElementById('resVznos').innerText = lastCalcData.vznosStr;
-        document.getElementById('resMonths').innerText = lastCalcData.monthsStr;
-        document.getElementById('resMonthly').innerText = lastCalcData.monthlyStr;
-        document.getElementById('resTotal').innerText = lastCalcData.totalStr;
-        document.getElementById('resOverpay').innerText = lastCalcData.overpayStr;
+        document.getElementById('resCost').innerText = cost.toLocaleString() + ' ₽';
+        document.getElementById('resVznos').innerText = vznos.toLocaleString() + ' ₽';
+        document.getElementById('resMonths').innerText = months + ' мес.';
+        document.getElementById('resMonthly').innerText = monthly.toLocaleString() + ' ₽';
+        document.getElementById('resTotal').innerText = finalTotal.toLocaleString() + ' ₽';
+        document.getElementById('resOverpay').innerText = (finalTotal - cost).toLocaleString() + ' ₽';
     }
     
-    function getResultText() {
-        let t = `*YUSRA - Расчет рассрочки*\n\nСебестоимость: ${lastCalcData.costStr}\n`;
-        if (withVznos) t += `Первый взнос: ${lastCalcData.vznosStr}\n`;
-        t += `Срок: ${lastCalcData.monthsStr}\nЕжемесячный платеж: ${lastCalcData.monthlyStr}\n\nИтого: ${lastCalcData.totalStr}\nПереплата: ${lastCalcData.overpayStr}`;
-        return t;
-    }
-    
-    function copyResult() { navigator.clipboard.writeText(getResultText()); }
-    function shareResult() { window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(getResultText())}`, '_blank'); }
+    function copyResult() { navigator.clipboard.writeText("Расчет YUSRA: " + document.getElementById('resTotal').innerText); }
+    function shareResult() { window.open("https://api.whatsapp.com/send?text=Расчет YUSRA: " + document.getElementById('resTotal').innerText); }
     
     onCostChange();
 </script>
