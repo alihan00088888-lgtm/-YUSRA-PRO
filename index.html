@@ -103,7 +103,7 @@
 
     <div class="form-group" id="vznosGroup">
         <label>Первоначальный взнос (₽):</label>
-        <input type="number" id="vznos" value="20000" oninput="calculate()">
+        <input type="number" id="vznos" value="24000" oninput="calculate()">
     </div>
 
     <div class="result-box">
@@ -173,9 +173,15 @@
     }
     
     function onCostChange() { 
-        let cost = parseFloat(document.getElementById('costPrice').value)||0;
+        let cost = parseFloat(document.getElementById('costPrice').value) || 0;
         updateMonthOptions(cost);
-        if (withVznos) { document.getElementById('vznos').value = Math.round(cost * 0.2); } 
+        if (withVznos) { 
+            let months = parseInt(document.getElementById('months').value) || 2;
+            let table = cost < 20000 ? ratesLow : ratesHigh;
+            let currentRates = table[months] || table[2];
+            let totalCostApprox = cost + (cost * (currentRates.withV / 100));
+            document.getElementById('vznos').value = Math.round(totalCostApprox * 0.2); 
+        } 
         calculate(); 
     }
     
@@ -214,6 +220,7 @@
             vznosStr: vznos.toLocaleString('ru-RU') + ' ₽',
             monthsStr: months + (months < 5 ? ' мес.' : ' мес.'),
             monthlyStr: monthly.toLocaleString('ru-RU') + ' ₽',
+            totalStr: finalTotalCost.toLocaleString('ru-RU') + ' ₽',
             overpayStr: finalOverpay.toLocaleString('ru-RU') + ' ₽'
         };
 
@@ -221,17 +228,18 @@
         document.getElementById('resVznos').innerText = lastCalcData.vznosStr;
         document.getElementById('resMonths').innerText = lastCalcData.monthsStr;
         document.getElementById('resMonthly').innerText = lastCalcData.monthlyStr;
-        document.getElementById('resTotal').innerText = finalTotalCost.toLocaleString('ru-RU') + ' ₽';
+        document.getElementById('resTotal').innerText = lastCalcData.totalStr;
         document.getElementById('resOverpay').innerText = finalOverpay.toLocaleString('ru-RU') + ` ₽ (${visualPercent}%)`;
     }
     
     function getResultText() {
-        let text = `🔹️ *YUSRA - Рассрочка* 🔹️\n\n`;
+        let text = `🔹️ *YUSRA - Рассрочка по нормам ислама* 🔹️\n\n`;
         text += `📦 Себестоимость: *${lastCalcData.costStr}*\n`;
         if (withVznos) text += `💱 Первый взнос: *${lastCalcData.vznosStr}*\n`;
         text += `⏳ Срок: *${lastCalcData.monthsStr}*\n`;
         text += `💳 Ежемесячный платеж: *${lastCalcData.monthlyStr}*\n\n`;
-        text += `📈 Переплата: *${lastCalcData.overpayStr}*`;
+        text += `📈 Переплата: *${lastCalcData.overpayStr}*\n`;
+        text += `✅️ Итог: *${lastCalcData.totalStr}*`;
         return text;
     }
     
