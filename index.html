@@ -1,258 +1,222 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YUSRA - Рассрочка (Новый тариф)</title>
-    <style>
-        :root {
-            --primary: #1e40af;       
-            --primary-dark: #1e3a8a;  
-            --primary-light: #eff6ff; 
-            --accent-color: #991b1b; /* Измененный цвет для отличия */
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-color: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #cbd5e1;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 16px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-        body::before {
-            content: "";
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cpath fill='%231e40af' opacity='0.04' d='M250 20C122.97 20 20 122.97 20 250s102.97 230 230 230 230-102.97 230-230S377.03 20 250 20zm0 416c-102.75 0-186-83.25-186-186S147.25 64 250 64s186 83.25 186 186-83.25 186-186 186zm-86-146h32v80h-32v-80zm64-48h32v128h-32v-128zm64-32h32v160h-32v-160zm62.43 12.38l22.63-22.63 45.25 45.25-22.63 22.63-45.25-45.25z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-            z-index: 0;
-            pointer-events: none;
-            user-select: none;
-        }
-        .container {
-            background: var(--card-bg);
-            width: 100%;
-            max-width: 420px;
-            padding: 24px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px -5px rgba(30, 64, 175, 0.08), 0 8px 10px -6px rgba(30, 64, 175, 0.05);
-            position: relative;
-            z-index: 1;
-            border: 1px solid rgba(203, 213, 225, 0.6);
-        }
-        
-        .logo-area { text-align: center; margin-bottom: 20px; }
-        .logo-title { font-size: 32px; font-weight: 900; color: var(--primary-dark); letter-spacing: 2px; margin: 0; line-height: 1; }
-        .logo-subtitle { font-size: 11px; font-weight: 700; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; }
-
-        .mode-buttons { display: flex; gap: 8px; margin-bottom: 20px; background: #f1f5f9; padding: 4px; border-radius: 12px; border: 1px solid var(--border-color); }
-        .mode-btn { flex: 1; padding: 10px; border: none; background: transparent; border-radius: 9px; font-weight: 600; cursor: pointer; color: var(--text-muted); transition: all 0.2s; font-size: 14px; }
-        .mode-btn.active { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2); }
-        
-        .form-group { margin-bottom: 16px; }
-        label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
-        input, select { width: 100%; padding: 12px 14px; border: 1px solid var(--border-color); border-radius: 12px; font-size: 16px; box-sizing: border-box; background: #fff; color: var(--text-color); outline: none; transition: border-color 0.2s; }
-        input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15); }
-        
-        .result-box { background: var(--primary-light); border: 1px solid #bfdbfe; border-radius: 16px; padding: 18px; margin-top: 20px; }
-        .result-box h3 { margin: 0 0 12px 0; font-size: 15px; color: var(--primary-dark); }
-        .result-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: #334155; }
-        .result-row span:last-child { font-weight: 700; color: #0f172a; }
-        
-        .actions { display: flex; gap: 10px; margin-top: 20px; }
-        .action-btn { flex: 1; padding: 14px; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; color: #fff; text-align: center; text-decoration: none; font-size: 14px; transition: opacity 0.2s, transform 0.1s; }
-        .btn-copy { background-color: #334155; }
-        .btn-whatsapp { background-color: #25d366; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#17345f">
+  <title>Даруль-Финанс — Рассрочка по нормам ислама</title>
+  <style>
+    :root {
+      --primary:#17345f;
+      --primary-dark:#102747;
+      --primary-soft:#edf3fb;
+      --accent:#2b5d9b;
+      --bg:#f5f7fb;
+      --card:#fff;
+      --text:#17263d;
+      --muted:#66758b;
+      --border:#dce4ef;
+      --green:#15965b;
+      --shadow:0 12px 34px rgba(23,52,95,.09);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;padding:22px 14px;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+    .container{width:100%;max-width:460px;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:25px;box-shadow:var(--shadow)}
+    .logo{text-align:center;margin:2px 0 23px}
+    .logo-title{margin:0;color:var(--primary);font-size:30px;font-weight:900;letter-spacing:1.5px;line-height:1.15}
+    .logo-subtitle{margin-top:7px;color:var(--accent);font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+    .mode-buttons{display:flex;gap:7px;padding:4px;margin-bottom:21px;background:#f0f3f8;border:1px solid var(--border);border-radius:13px}
+    .mode-btn{flex:1;padding:11px 8px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-size:14px;font-weight:700;cursor:pointer;transition:.18s}
+    .mode-btn.active{background:var(--primary);color:#fff;box-shadow:0 3px 9px rgba(23,52,95,.2)}
+    .form-group{margin-bottom:16px}
+    label{display:block;margin-bottom:7px;color:var(--muted);font-size:13px;font-weight:700}
+    input,select{width:100%;height:48px;padding:0 14px;border:1px solid var(--border);border-radius:12px;background:#fff;color:var(--text);font:600 16px inherit;font-size:16px;outline:none;transition:.18s}
+    input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(43,93,155,.12)}
+    .hint{margin-top:6px;color:#8290a3;font-size:11px;line-height:1.4}
+    .result-box{margin-top:21px;padding:18px 16px 14px;border:1px solid #d5e2f2;border-radius:16px;background:var(--primary-soft)}
+    .result-box h2{margin:0 0 15px;color:var(--primary);font-size:16px}
+    .result-row{display:flex;justify-content:space-between;gap:12px;margin:0 0 11px;color:#53647b;font-size:13px;line-height:1.35}
+    .result-row span:last-child{color:var(--text);font-weight:750;text-align:right;white-space:nowrap}
+    .result-row.total{align-items:center;margin:13px -4px 0;padding:13px 4px 0;border-top:1px solid #cbd9eb;color:var(--primary);font-weight:800;font-size:14px}
+    .result-row.total span:last-child{color:var(--primary);font-size:21px}
+    .result-row.monthly{margin-top:13px;padding:12px;border-radius:11px;background:#fff;color:var(--primary);font-weight:800}
+    .result-row.monthly span:last-child{color:var(--primary);font-size:18px}
+    .actions{display:flex;gap:10px;margin-top:18px}
+    .action-btn{flex:1;min-height:48px;padding:12px 10px;border:0;border-radius:12px;color:#fff;font-size:14px;font-weight:750;cursor:pointer;transition:transform .12s,opacity .12s}
+    .action-btn:active{transform:scale(.98)}
+    .btn-copy{background:#334b6d}.btn-whatsapp{background:#20b965}
+    .status{min-height:17px;margin-top:9px;text-align:center;color:var(--green);font-size:12px;font-weight:650}
+    .footer{margin-top:5px;text-align:center;color:#9aa5b5;font-size:10px}
+    @media(max-width:380px){.container{padding:19px}.logo-title{font-size:26px}.result-box{padding:15px 12px}.result-row{font-size:12px}}
+  </style>
 </head>
 <body>
+  <main class="container">
+    <header class="logo">
+      <h1 class="logo-title">ДАРУЛЬ-ФИНАНС</h1>
+      <div class="logo-subtitle">Рассрочка по нормам ислама</div>
+    </header>
 
-<div class="container">
-    <div class="logo-area">
-        <div class="logo-title">YUSRA</div>
-        <div class="logo-subtitle">Рассрочка по нормам ислама</div>
-    </div>
-
-    <div class="mode-buttons">
-        <button type="button" id="btnWithVznos" class="mode-btn active" onclick="setMode(true)">Со взносом</button>
-        <button type="button" id="btnNoVznos" class="mode-btn" onclick="setMode(false)">Без взноса</button>
-    </div>
-
-    <div class="form-group">
-        <label>Себестоимость (₽):</label>
-        <input type="number" id="costPrice" value="100000" oninput="onCostChange()">
+    <div class="mode-buttons" role="group" aria-label="Вариант рассрочки">
+      <button type="button" id="btnWithVznos" class="mode-btn active" aria-pressed="true">С первоначальным взносом</button>
+      <button type="button" id="btnNoVznos" class="mode-btn" aria-pressed="false">Без взноса</button>
     </div>
 
     <div class="form-group">
-        <label>Срок рассрочки:</label>
-        <select id="months" onchange="calculate()"></select>
+      <label for="costPrice">Себестоимость товара (₽)</label>
+      <input type="number" id="costPrice" min="0" step="1" value="100000" inputmode="decimal">
     </div>
 
     <div class="form-group" id="vznosGroup">
-        <label>Первоначальный взнос (₽):</label>
-        <input type="number" id="vznos" value="24000" oninput="calculate()">
+      <label for="vznos">Первоначальный взнос (₽)</label>
+      <input type="number" id="vznos" min="0" step="1" value="25000" inputmode="decimal">
+      <div class="hint">25% — стандартный ориентир. Можно указать любую сумму, в том числе 0 ₽.</div>
     </div>
 
-    <div class="result-box">
-        <h3>Расчет YUSRA:</h3>
-        <div class="result-row"><span>Себестоимость:</span> <span id="resCost">0 ₽</span></div>
-        <div class="result-row" id="resVznosRow"><span>Первый взнос:</span> <span id="resVznos">0 ₽</span></div>
-        <div class="result-row"><span>Срок:</span> <span id="resMonths">3 мес.</span></div>
-        <div class="result-row"><span>Ежемесячный платеж:</span> <span id="resMonthly">0 ₽</span></div>
-        <div class="result-row"><span>Итоговая стоимость:</span> <span id="resTotal">0 ₽</span></div>
-        <div class="result-row"><span>Переплата:</span> <span id="resOverpay">0 ₽ (0%)</span></div>
+    <div class="form-group">
+      <label for="months">Срок рассрочки</label>
+      <select id="months">
+        <option value="3">3 месяца</option><option value="4">4 месяца</option>
+        <option value="5">5 месяцев</option><option value="6">6 месяцев</option>
+        <option value="7">7 месяцев</option><option value="8">8 месяцев</option>
+        <option value="9">9 месяцев</option><option value="10">10 месяцев</option>
+        <option value="11">11 месяцев</option><option value="12">12 месяцев</option>
+      </select>
     </div>
+
+    <section class="result-box" aria-live="polite">
+      <h2>Расчёт Даруль-Финанс</h2>
+      <div class="result-row"><span>Себестоимость:</span><span id="resCost">100 000 ₽</span></div>
+      <div class="result-row" id="resVznosRow"><span>Первоначальный взнос:</span><span id="resVznos">25 000 ₽</span></div>
+      <div class="result-row"><span>Остаток себестоимости:</span><span id="resRemaining">75 000 ₽</span></div>
+      <div class="result-row"><span>Срок:</span><span id="resMonths">3 месяца</span></div>
+      <div class="result-row"><span>Применённый процент:</span><span id="resRate">12%</span></div>
+      <div class="result-row"><span>Наценка:</span><span id="resOverpay">9 000 ₽</span></div>
+      <div class="result-row monthly"><span>Ежемесячный платёж:</span><span id="resMonthly">28 000 ₽</span></div>
+      <div class="result-row total"><span>Итоговая сумма:</span><span id="resTotal">109 000 ₽</span></div>
+    </section>
 
     <div class="actions">
-        <button type="button" class="action-btn btn-copy" onclick="copyResult()">Копировать</button>
-        <button type="button" class="action-btn btn-whatsapp" onclick="shareResult()">WhatsApp</button>
+      <button type="button" class="action-btn btn-copy" id="copyBtn">Копировать</button>
+      <button type="button" class="action-btn btn-whatsapp" id="whatsappBtn">Отправить в WhatsApp</button>
     </div>
-</div>
+    <div class="status" id="status" role="status"></div>
+    <div class="footer">Даруль-Финанс · Калькулятор рассрочки</div>
+  </main>
 
-<script>
+  <script>
+    // Тарифы: значения в процентах. Для расчёта с любым взносом
+    // процент применяется к оставшейся себестоимости по таблице «Без взноса».
+    const rates = {
+      3:  { withV: 9,  noV: 12 },
+      4:  { withV: 12, noV: 16 },
+      5:  { withV: 15, noV: 20 },
+      6:  { withV: 18, noV: 24 },
+      7:  { withV: 20, noV: 23.5 },
+      8:  { withV: 22, noV: 26.5 },
+      9:  { withV: 24, noV: 30 },
+      10: { withV: 27, noV: 33.5 },
+      11: { withV: 29, noV: 37 },
+      12: { withV: 33, noV: 40 }
+    };
+
     let withVznos = true;
-    let lastCalcData = {};
-    
-    // Новые тарифы от 20 000 ₽
-    const ratesHigh = { 
-        2: {withV: 12, noV: 18}, 3: {withV: 14, noV: 20}, 4: {withV: 16, noV: 22}, 
-        5: {withV: 18, noV: 24}, 6: {withV: 21, noV: 27}, 7: {withV: 24, noV: 31}, 
-        8: {withV: 28, noV: 35}, 9: {withV: 31, noV: 38}, 10: {withV: 34, noV: 41}, 
-        11: {withV: 37, noV: 44}, 12: {withV: 40, noV: 47} 
-    };
-    
-    const ratesLow = { 
-        2: {withV: 15, noV: 20}, 3: {withV: 20, noV: 25}, 4: {withV: 25, noV: 30}, 5: {withV: 27, noV: 32} 
-    };
-
-    function updateMonthOptions(cost) {
-        let select = document.getElementById('months');
-        let currentVal = parseInt(select.value);
-        select.innerHTML = '';
-        
-        let maxMonth = cost < 20000 ? 5 : 12;
-        let startMonth = cost < 20000 ? 2 : 2; 
-
-        for (let i = startMonth; i <= maxMonth; i++) {
-            let opt = document.createElement('option');
-            opt.value = i;
-            opt.innerText = i + ' ' + (i < 5 ? 'месяца' : 'месяцев');
-            select.appendChild(opt);
-        }
-        select.value = (currentVal >= startMonth && currentVal <= maxMonth) ? currentVal : startMonth;
-    }
-
-    // Округление кратно 100 рублей
-    function round100(val) { 
-        let remainder = val % 100; 
-        return remainder >= 50 ? val + (100 - remainder) : val - remainder; 
-    }
+    let lastCalcData = null;
+    const byId = id => document.getElementById(id);
+    const money = value => Math.round(value).toLocaleString('ru-RU') + ' ₽';
+    const round100 = value => Math.floor((value + 50) / 100) * 100;
+    const monthWord = n => n === 1 ? 'месяц' : (n >= 2 && n <= 4 ? 'месяца' : 'месяцев');
 
     function setMode(status) {
-        withVznos = status;
-        document.getElementById('btnWithVznos').classList.toggle('active', status);
-        document.getElementById('btnNoVznos').classList.toggle('active', !status);
-        const vznosGroup = document.getElementById('vznosGroup');
-        const resVznosRow = document.getElementById('resVznosRow');
-        
-        if (status) { 
-            vznosGroup.style.display = 'block'; 
-            resVznosRow.style.display = 'flex'; 
-        } else { 
-            vznosGroup.style.display = 'none'; 
-            resVznosRow.style.display = 'none'; 
-        }
-        calculate();
+      withVznos = status;
+      byId('btnWithVznos').classList.toggle('active', status);
+      byId('btnNoVznos').classList.toggle('active', !status);
+      byId('btnWithVznos').setAttribute('aria-pressed', String(status));
+      byId('btnNoVznos').setAttribute('aria-pressed', String(!status));
+      byId('vznosGroup').style.display = status ? 'block' : 'none';
+      byId('resVznosRow').style.display = status ? 'flex' : 'none';
+      calculate();
     }
-    
-    function onCostChange() { 
-        let cost = parseFloat(document.getElementById('costPrice').value) || 0;
-        updateMonthOptions(cost);
-        if (withVznos) { 
-            let months = parseInt(document.getElementById('months').value) || 2;
-            let table = cost < 20000 ? ratesLow : ratesHigh;
-            let currentRates = table[months] || table[2];
-            let totalCostApprox = cost + (cost * (currentRates.withV / 100));
-            document.getElementById('vznos').value = round100(Math.round(totalCostApprox * 0.2)); 
-        } 
-        calculate(); 
-    }
-    
+
     function calculate() {
-        let cost = parseFloat(document.getElementById('costPrice').value) || 0;
-        let months = parseInt(document.getElementById('months').value) || 2;
-        let vznos = withVznos ? (parseFloat(document.getElementById('vznos').value) || 0) : 0;
-        
-        let table = cost < 20000 ? ratesLow : ratesHigh;
-        let currentRates = table[months] || table[2];
-        
-        let totalCost = 0;
-        let effectivePercentForDisplay = 0;
+      const rawCost = Number(byId('costPrice').value);
+      const cost = Number.isFinite(rawCost) && rawCost > 0 ? rawCost : 0;
+      const months = Number(byId('months').value);
+      const rawDeposit = Number(byId('vznos').value);
+      const requestedDeposit = withVznos && Number.isFinite(rawDeposit) && rawDeposit > 0 ? rawDeposit : 0;
+      const deposit = Math.min(requestedDeposit, cost);
+      const remaining = Math.max(cost - deposit, 0);
+      const rate = withVznos ? rates[months].noV : rates[months].noV;
+      const markup = remaining * rate / 100;
+      const financedAmount = remaining + markup;
+      const monthly = round100(financedAmount / months);
+      const total = deposit + monthly * months;
+      const actualOverpay = total - cost;
+      const effectivePercent = cost > 0 ? actualOverpay / cost * 100 : 0;
 
-        if (!withVznos) {
-            effectivePercentForDisplay = currentRates.noV;
-            totalCost = cost + (cost * (effectivePercentForDisplay / 100));
-        } else {
-            effectivePercentForDisplay = currentRates.withV;
-            totalCost = cost + (cost * (effectivePercentForDisplay / 100));
-        }
-
-        let remainingToPay = Math.max(totalCost - vznos, 0);
-        let monthly = round100(Math.round(remainingToPay / months));
-        let finalTotalCost = vznos + (monthly * months);
-        let finalOverpay = finalTotalCost - cost;
-        let visualPercent = cost > 0 ? Math.round((finalOverpay / cost) * 100) : effectivePercentForDisplay;
-
-        lastCalcData = {
-            costStr: cost.toLocaleString('ru-RU') + ' ₽',
-            vznosStr: vznos.toLocaleString('ru-RU') + ' ₽',
-            monthsStr: months + (months < 5 ? ' мес.' : ' мес.'),
-            monthlyStr: monthly.toLocaleString('ru-RU') + ' ₽',
-            totalStr: finalTotalCost.toLocaleString('ru-RU') + ' ₽',
-            overpayStr: finalOverpay.toLocaleString('ru-RU') + ' ₽'
-        };
-
-        document.getElementById('resCost').innerText = lastCalcData.costStr;
-        document.getElementById('resVznos').innerText = lastCalcData.vznosStr;
-        document.getElementById('resMonths').innerText = lastCalcData.monthsStr;
-        document.getElementById('resMonthly').innerText = lastCalcData.monthlyStr;
-        document.getElementById('resTotal').innerText = lastCalcData.totalStr;
-        document.getElementById('resOverpay').innerText = finalOverpay.toLocaleString('ru-RU') + ` ₽ (${visualPercent}%)`;
+      lastCalcData = { cost, deposit, remaining, months, rate, markup, monthly, total, actualOverpay, effectivePercent };
+      byId('resCost').textContent = money(cost);
+      byId('resVznos').textContent = money(deposit);
+      byId('resRemaining').textContent = money(remaining);
+      byId('resMonths').textContent = months + ' ' + monthWord(months);
+      byId('resRate').textContent = String(rate).replace('.', ',') + '%';
+      byId('resOverpay').textContent = money(actualOverpay);
+      byId('resMonthly').textContent = money(monthly);
+      byId('resTotal').textContent = money(total);
+      byId('status').textContent = '';
     }
-    
+
     function getResultText() {
-        let text = `🔹️ *YUSRA - Рассрочка по нормам ислама* 🔹️\n\n`;
-        text += `📦 Себестоимость: *${lastCalcData.costStr}*\n`;
-        if (withVznos) text += `💱 Первый взнос: *${lastCalcData.vznosStr}*\n`;
-        text += `⏳ Срок: *${lastCalcData.monthsStr}*\n`;
-        text += `💳 Ежемесячный платеж: *${lastCalcData.monthlyStr}*\n\n`;
-        text += `📈 Переплата: *${lastCalcData.overpayStr}*\n`;
-        text += `✅️ Итог: *${lastCalcData.totalStr}*`;
-        return text;
+      if (!lastCalcData) calculate();
+      const d = lastCalcData;
+      const lines = [
+        '🔹 ДАРУЛЬ-ФИНАНС — Рассрочка по нормам ислама 🔹', '',
+        '📦 Себестоимость: ' + money(d.cost)
+      ];
+      if (withVznos) lines.push('💰 Первоначальный взнос: ' + money(d.deposit));
+      lines.push(
+        '📉 Остаток себестоимости: ' + money(d.remaining),
+        '⏳ Срок: ' + d.months + ' ' + monthWord(d.months),
+        '📊 Применённый процент: ' + String(d.rate).replace('.', ',') + '%',
+        '💳 Ежемесячный платёж: ' + money(d.monthly), '',
+        '📈 Переплата: ' + money(d.actualOverpay) + ' (' + d.effectivePercent.toFixed(1).replace('.', ',') + '%)',
+        '✅ Итого к оплате: ' + money(d.total)
+      );
+      return lines.join('\n');
     }
-    
-    function copyResult() { navigator.clipboard.writeText(getResultText()); }
-    
-    function shareResult() {
-        let text = getResultText();
-        if (navigator.share) { navigator.share({ text: text }).catch(() => {}); } 
-        else { window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank'); }
+
+    async function copyResult() {
+      const text = getResultText();
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const area = document.createElement('textarea');
+          area.value = text; area.style.position = 'fixed'; area.style.opacity = '0';
+          document.body.appendChild(area); area.select();
+          const ok = document.execCommand('copy'); area.remove();
+          if (!ok) throw new Error('copy failed');
+        }
+        byId('status').textContent = 'Расчёт скопирован';
+      } catch (e) {
+        byId('status').textContent = 'Не удалось скопировать. Выделите и скопируйте текст вручную.';
+      }
     }
-    
-    onCostChange();
-</script>
+
+    function shareWhatsApp() {
+      const text = getResultText();
+      const url = 'https://wa.me/?text=' + encodeURIComponent(text);
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    byId('btnWithVznos').addEventListener('click', () => setMode(true));
+    byId('btnNoVznos').addEventListener('click', () => setMode(false));
+    byId('costPrice').addEventListener('input', calculate);
+    byId('vznos').addEventListener('input', calculate);
+    byId('months').addEventListener('change', calculate);
+    byId('copyBtn').addEventListener('click', copyResult);
+    byId('whatsappBtn').addEventListener('click', shareWhatsApp);
+    calculate();
+  </script>
 </body>
 </html>
